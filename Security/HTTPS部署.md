@@ -1,7 +1,7 @@
 #### 前言
 ***
 考虑到HTTP的安全性问题，现在很多网站已经将HTTP升级到了HTTP + SSL（HTTPS）。
-但也并不是所有的HTTPS站点就是安全的，也可能存在中间人的攻击（不是权威的CA机构颁发的证书以及证书校验不严格）。下图就是关于“中间人攻击”的原理图。
+但也并不是所有的HTTPS站点就是安全的，也可能存在中间人的攻击（不是权威的CA机构颁发的证书以及证书校验不严格）。下图就是关于“中间人攻击”的原理图。<br/>
 ![image](https://raw.githubusercontent.com/SexyPhoenix/Blog/master/static/Security/1.png)
 不过权威CA机构颁发证书大多数是收费的，想用免费的可以考虑 Let's Encrypt。
 什么才是权威呢？
@@ -37,12 +37,12 @@ cp openssl.cnf cacert.cnf
 ```
 vim  cacert.cnf
 ```
-![image](https://raw.githubusercontent.com/SexyPhoenix/Blog/master/static/Security/4.png)
-修改v3_ca 下面设置项。
+![image](https://raw.githubusercontent.com/SexyPhoenix/Blog/master/static/Security/4.png)<br/>
+修改v3_ca 下面设置项。<br/>
 
-![image](https://raw.githubusercontent.com/SexyPhoenix/Blog/master/static/Security/5.png)
-修改v3_req的设置项， DNS参数值为要升级为HTTPS的域名。
-开启 v3_req（去掉 #）。
+![image](https://raw.githubusercontent.com/SexyPhoenix/Blog/master/static/Security/5.png)<br/>
+修改v3_req的设置项， DNS参数值为要升级为HTTPS的域名。<br/>
+开启 v3_req（去掉 #）。<br/>
 
 生成根证书的私钥
 ```
@@ -103,32 +103,32 @@ cp ./newcert/www.app.goods.crt /etc/nginx/ssl  //将签名后的证书交给服�
 cd  /etc/nginx/conf.d
 vim www.app.goods.conf
 ```
-![image](https://raw.githubusercontent.com/SexyPhoenix/Blog/master/static/Security/9.png)
-ssl 监听端口为443， 开启ssl，并加载服务器证书私钥以及证书。
+![image](https://raw.githubusercontent.com/SexyPhoenix/Blog/master/static/Security/9.png)<br/>
+ssl 监听端口为443， 开启ssl，并加载服务器证书私钥以及证书。<br/>
 ```
 service nginx restart //重启服务
 ```
 https://www.app.good //chrome 打开网站 
-![image](https://raw.githubusercontent.com/SexyPhoenix/Blog/master/static/Security/10.png)
-页面出现“您的连接不是私密连接”，是因为自建的根证书或者服务器证书不被浏览器信任。
+![image](https://raw.githubusercontent.com/SexyPhoenix/Blog/master/static/Security/10.png)<br/>
+页面出现“您的连接不是私密连接”，是因为自建的根证书或者服务器证书不被浏览器信任。<br/>
 
 导出根证书
 ```
 cd /etc/ssl
 sz cacert.pem //发送到桌面。
 ```
-Google 设置  高级 >  管理证书 受信任的根证书颁发机构  > 导入cacert.pem
-运行 > certmgr.msc  //chrome用的是window系统的证书管理
-![image](https://raw.githubusercontent.com/SexyPhoenix/Blog/master/static/Security/11.png)
+Google 设置  高级 >  管理证书 受信任的根证书颁发机构  > 导入cacert.pem 运行 > certmgr.msc  //chrome用的是window系统的证书管理<br/>
+![image](https://raw.githubusercontent.com/SexyPhoenix/Blog/master/static/Security/11.png)<br/>
 
-刷新  https://www.app.goods/
-![image](https://raw.githubusercontent.com/SexyPhoenix/Blog/master/static/Security/12.png)
-chrome、IE等已成功
+刷新  https://www.app.goods/<br/>
+<br/>
+![image](https://raw.githubusercontent.com/SexyPhoenix/Blog/master/static/Security/12.png)<br/>
+chrome、IE等已成功<br/>
 
-Firefox 用的不是window系统的证书管理，需要导入到浏览器
-Firefox 选项   > 隐私与安全 查看证书  > 导入cacert.pem 证书颁发机构 （下载证书 勾选第一个框）
-![image](https://raw.githubusercontent.com/SexyPhoenix/Blog/master/static/Security/13.png)
-至此，HTTPS部署成功
+Firefox 用的不是window系统的证书管理，需要导入到浏览器<br/>
+Firefox 选项   > 隐私与安全 查看证书  > 导入cacert.pem 证书颁发机构 （下载证书 勾选第一个框）<br/>
+![image](https://raw.githubusercontent.com/SexyPhoenix/Blog/master/static/Security/13.png)<br/>
+至此，HTTPS部署成功<br/>
 
 #### 强制HTTP跳转
 ***
