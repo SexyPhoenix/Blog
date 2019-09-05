@@ -2,12 +2,12 @@
 ```
 composer require laravel/passport=~4.0
 ```
- notes: 
-  1）确保系统安装unzip、zip等命令。
-  2）composer 安装出现 Authentication required (packagist.phpcomposer.com) 问题，修改composer.json 中的源，repositories.packagist.url = https://packagist.laravel-china.org 。
+ notes:   
+  1）确保系统安装unzip、zip等命令。  
+  2）composer 安装出现 Authentication required (packagist.phpcomposer.com) 问题，修改composer.json 中的源，repositories.packagist.url = https://packagist.laravel-china.org 。  
 
 #### 注册服务提供者
-在config/app.php的providers 数组中加入 Laravel\Passport\PassportServiceProvider::class
+在config/app.php的providers 数组中加入 Laravel\Passport\PassportServiceProvider::class  
 
 #### 迁移数据库
 ```
@@ -17,26 +17,26 @@ php artisan migrate  //生成用于存储客户端和令牌的数据表
 ```
  php artisan passport:install  
 ```
-1、生成oauth-private.key（用于构建认证服务器），oauth-public.key（用于构建资源服务器）
-2、oauth_clients数据库生成「个人访问」客户端和「密码授权]两条数据。
+1、生成oauth-private.key（用于构建认证服务器），oauth-public.key（用于构建资源服务器）  
+2、oauth_clients数据库生成「个人访问」客户端和「密码授权]两条数据。  
 
 #### 配置Passport（参考官方文档）
-在Model中，我们需要增加 HasApiTokens class
-在AuthServiceProvider中， 增加 "Passport::routes()"
-在 auth.php中， 更改 api 认证方式为passport
+在Model中，我们需要增加 HasApiTokens class  
+在AuthServiceProvider中， 增加 "Passport::routes()"  
+在 auth.php中， 更改 api 认证方式为passport  
 
 #### 申请客户端以及私人访问令牌 （两种方式）
 ###### 1. 命令形式（不方便客户注册）
 ```
 php artisan passport:client
 ```
-![image](https://raw.githubusercontent.com/SexyPhoenix/Blog/master/static/Laravel/8.jpg)
+![image](https://raw.githubusercontent.com/SexyPhoenix/Blog/master/static/Laravel/8.jpg)  
 
 ###### 2. Passport Vue 组件 
 ```
 php artisan vendor:publish --tag=passport-components  //发布 Passport Vue，组件位于resources/assets/js/components下
 ```
-//注册到resources/assets/js/app.js 文件，记得要放在new Vue上面
+//注册到resources/assets/js/app.js 文件，记得要放在new Vue上面  
 ```
 Vue.component(
     'passport-clients',
@@ -58,24 +58,24 @@ Vue.component(
 npm install   //此处报错，移步larravel Mix文档
 npm run dev
 ```
-编译后资源放在public/js/app.js下
+编译后资源放在public/js/app.js下  
 
-//组件放入应用模板（记得引入编译后的app.js）
+//组件放入应用模板（记得引入编译后的app.js）  
 ```
 <passport-clients></passport-clients>
 <passport-authorized-clients></passport-authorized-clients>
 <passport-personal-access-tokens></passport-personal-access-tokens>
 ```
-![image](https://raw.githubusercontent.com/SexyPhoenix/Blog/master/static/Laravel/9.jpg)
-以上认证服务器都已经搭建完成
+![image](https://raw.githubusercontent.com/SexyPhoenix/Blog/master/static/Laravel/9.jpg)  
+以上认证服务器都已经搭建完成  
 
 #### 第三方应用实现登录
 ###### 1. 申请客户端  
-![image](https://raw.githubusercontent.com/SexyPhoenix/Blog/master/static/Laravel/10.jpg)
-回调地址 http://third.plat.goods/dew/sso
+![image](https://raw.githubusercontent.com/SexyPhoenix/Blog/master/static/Laravel/10.jpg)  
+回调地址 http://third.plat.goods/dew/sso  
 
 ###### 申请授权码和访问令牌
-//获取授权码 code （第一次交互）
+//获取授权码 code （第一次交互）  
 ```
 $query = http_build_query(array(
         'client_id' => 3,
@@ -87,9 +87,9 @@ $query = http_build_query(array(
 
 return redirect('http://laravel.plat.goods/oauth/authorize?'.$query);  ///laravel.plat.goods为上面认证服务器
 ```
-![image](https://raw.githubusercontent.com/SexyPhoenix/Blog/master/static/Laravel/11.jpg)
-//获取访问令牌  access token 以及向资源服务器请求用户信息 
-授权后会重定向回调地址
+![image](https://raw.githubusercontent.com/SexyPhoenix/Blog/master/static/Laravel/11.jpg)  
+//获取访问令牌  access token 以及向资源服务器请求用户信息   
+授权后会重定向回调地址  
 ```
 Route::get('/dew/sso', 'SSOController@callback');  //路由文件里添加
 php artisan make:controller SSOController //创建文件
