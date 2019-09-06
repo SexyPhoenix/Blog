@@ -1,3 +1,5 @@
+#### Blog已迁移，请移步 [SexyPhoenix](https://sexyphoenix.github.io/) 
+
 #### Blog
 个人博客，主要是分享一些技术文档。
 
