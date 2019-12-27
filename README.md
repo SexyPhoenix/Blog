@@ -1,4 +1,4 @@
-#### Blog已迁移，请移步 [博客园](https://www.cnblogs.com/SexyPhoenix/)  [SexyPhoenix的博客](https://sexyphoenix.github.io/) 
+#### Blog已迁移，请移步 [博客园](https://www.cnblogs.com/SexyPhoenix/)  或者 [SexyPhoenix的博客](https://sexyphoenix.github.io/) 
 
 #### Blog
 个人博客，主要是分享一些技术文档。
